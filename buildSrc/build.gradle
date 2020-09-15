@@ -1,0 +1,12 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+    google()
+    jcenter()
+}
+
+dependencies {
+    implementation gradleApi()
+    testImplementation 'junit:junit:4.13'
+}
