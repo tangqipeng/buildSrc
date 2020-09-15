@@ -8,3 +8,6 @@ distributionUrl=http\://192.168.1.192:8081/artifactory/android_local/gradle-6.1.
     repositories {
         maven { url 'http://192.168.1.192:8081/artifactory/android_group/' }
     }
+
+
+- 遗留了一个问题：就是releaseHelper的参数没有传入
