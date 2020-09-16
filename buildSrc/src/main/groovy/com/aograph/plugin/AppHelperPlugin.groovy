@@ -36,12 +36,13 @@ class AppHelperPlugin implements Plugin<Project> {
 //        statisticsTask.init(project)
 //        statisticsTask.dependsOn(counterTask)
 
+        //这里至关重要，这里是架起桥梁，沟通app目录下的build.gradle中releaseHelper的联系
         project.getExtensions().create(RELESASE_HELPER_NAME, UploadModeExtension)
 
         project.afterEvaluate(new Action<Project>() {
             @Override
             void execute(Project project1) {
-                UploadModeExtension uploadModeExtension = project1.getExtensions().findByName(RELESASE_HELPER_NAME)
+                UploadModeExtension uploadModeExtension = project1.getExtensions().findByName(RELESASE_HELPER_NAME)//再次找到它就可以使用参数了
                 LineCounterExtension counterExtension = project1.getExtensions().create(LINE_COUNTER_TASK_NAME, LineCounterExtension)
                 LineCounterTask counterTask = project1.tasks.create(LINE_COUNTER_TASK_NAME, LineCounterTask)
                 counterTask.doFirst {
