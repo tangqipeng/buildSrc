@@ -36,12 +36,12 @@ class AppHelperPlugin implements Plugin<Project> {
 //        statisticsTask.init(project)
 //        statisticsTask.dependsOn(counterTask)
 
-        UploadModeExtension uploadModeExtension = project.getExtensions().create(RELESASE_HELPER_NAME, UploadModeExtension)
-        println('uploadModeExtension.notifyTag is ' + uploadModeExtension.notifyTag)
+        project.getExtensions().create(RELESASE_HELPER_NAME, UploadModeExtension)
 
         project.afterEvaluate(new Action<Project>() {
             @Override
             void execute(Project project1) {
+                UploadModeExtension uploadModeExtension = project1.getExtensions().findByName(RELESASE_HELPER_NAME)
                 LineCounterExtension counterExtension = project1.getExtensions().create(LINE_COUNTER_TASK_NAME, LineCounterExtension)
                 LineCounterTask counterTask = project1.tasks.create(LINE_COUNTER_TASK_NAME, LineCounterTask)
                 counterTask.doFirst {
