@@ -1,6 +1,8 @@
 #sdk的相关说明
 ## 插件开发
 - 主要使用groovy实现gradle插件，用于统计代码量，提交app
+- 代码中企业微信corpid和corpsecret需要你换成自己的企业微信下的参数
+- 代码中蒲公英的_api_key也需要换上你自己的
 ##本地仓库使用
 - 在项目文件中的gradle文件夹下的gradle-wrapper.properties中将#distributionUrl=https\://services.gradle.org/distributions/gradle-6.1.1-all.zip更改
 distributionUrl=http\://192.168.1.192:8081/artifactory/android_local/gradle-6.1.1-all.zip
