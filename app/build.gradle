@@ -94,5 +94,8 @@ dependencies {
 
 
 releaseHelper{
-    notifyTag = "1"
+    //说明：蒲公英保存时间长久，可以不用再次打包，企业微信方便，但是保存时间太短
+    notifyTag = gradle.ext.notifyMode
+    issue = "${gradle.ext.jiraPath}"
+    des = "${gradle.ext.appDes}appkey是${gradle.ext.aographAppkey}"
 }

@@ -1,2 +1,19 @@
+initEnvironmentExt()
 include ':app'
 rootProject.name = "agent_android_test"
+
+def initEnvironmentExt(){
+    String fileName = "apkrelative.properties"
+    Properties properties = new Properties()
+    File proFile = new File(rootDir.getAbsolutePath(), fileName)
+    //确保中文正常显示
+    properties.load(proFile.newReader("utf-8"))
+    gradle.ext.aographAppkey = properties.getProperty("aographAppkey")
+    println(gradle.ext.aographAppkey)
+    gradle.ext.notifyMode = Integer.parseInt(properties.getProperty("notifyMode"))
+    println(gradle.ext.notifyMode)
+    gradle.ext.jiraPath = properties.getProperty("jiraPath")
+    println(gradle.ext.jiraPath)
+    gradle.ext.appDes = properties.getProperty("appDes")
+    println(gradle.ext.appDes)
+}

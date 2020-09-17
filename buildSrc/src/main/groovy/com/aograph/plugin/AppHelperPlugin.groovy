@@ -58,7 +58,7 @@ class AppHelperPlugin implements Plugin<Project> {
                 HttpUrlConnectRequest httpUrlConnectRequest = project.getExtensions().create("HttpUrlConnectRequest", HttpUrlConnectRequest)
 
                 SendMsgToWechatTask sendMsgToWechat = project1.tasks.create(SEND_MESSAGE_TO_WECHAT_TASK_NAME, SendMsgToWechatTask)
-                sendMsgToWechat.init(httpUrlConnectRequest, uploadModeExtension.notifyTag)
+                sendMsgToWechat.init(httpUrlConnectRequest, uploadModeExtension)
                 UploadAppToPGYTask uploadAppToPGYTask = project1.tasks.create(POST_APK_TO_PGY_TASK_NAME, UploadAppToPGYTask)
                 uploadAppToPGYTask.init(httpUrlConnectRequest)
 //                project1.tasks.findByName("build").dependsOn(project1.tasks.findByName("clean"))

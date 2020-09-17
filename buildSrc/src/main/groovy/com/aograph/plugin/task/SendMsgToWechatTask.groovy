@@ -1,5 +1,6 @@
 package com.aograph.plugin.task
 
+import com.aograph.plugin.extension.UploadModeExtension
 import com.aograph.plugin.request.httpurlconnect.HttpUrlConnectRequest
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -11,27 +12,30 @@ import org.gradle.api.tasks.TaskAction
 class SendMsgToWechatTask extends DefaultTask {
 
     HttpUrlConnectRequest mHttpUrlConnectRequest
-    String mTag
-    def init(HttpUrlConnectRequest httpUrlConnectRequest, String tag) {
+    UploadModeExtension modeExtension
+    def init(HttpUrlConnectRequest httpUrlConnectRequest, UploadModeExtension uploadModeExtension) {
         mHttpUrlConnectRequest = httpUrlConnectRequest
-        mTag = tag
+        modeExtension = uploadModeExtension
     }
-
-    static final String jiraUrl = "http://jira.aograph.com:8085/browse/IOS-15?filter=-2"
 
     @TaskAction
     def sendMessageToWechat(){
         println('sendMessageToWechat')
-        //发送消息提示在蒲公英下载
-        sendNewsPGYMessage(jiraUrl)
-        if (mTag == null || !"1".equals(mTag)){
+        if (modeExtension.notifyTag == 0){
+            //发送消息提示在蒲公英下载
+            sendNewsPGYMessage(modeExtension.des, modeExtension.issue)
+        }
+        if (modeExtension.notifyTag == 0 || modeExtension.notifyTag == 1){
             //直接发送到企业微信
             def media_id = uploadApkAndGetMediaId()
             if (media_id != null){
                 postApkMessageToWechat(media_id)
             }
+        } else {
+            //发送消息提示在蒲公英下载
+            sendNewsPGYMessage(modeExtension.des, modeExtension.issue)
+            sendMessage("请从蒲公英上下载app测试，或是找到最近一次在企业微信中的app")
         }
-
     }
 
     def postApkMessageToWechat(String mediaID){
@@ -77,7 +81,7 @@ class SendMsgToWechatTask extends DefaultTask {
         println("response is "+ response)
     }
 
-    def sendNewsPGYMessage(String des){
+    def sendNewsPGYMessage(String des, String issue){
         def url = "message/send?access_token="
 
 //        "  \"touser\": \"TangQiPeng|wanglishuo@aograph.com|lijiaojiao@aograph.com\",\n" +
@@ -90,7 +94,7 @@ class SendMsgToWechatTask extends DefaultTask {
                 "   \"agentid\" : 1000011,\n" +
                 "   \"textcard\" : {\n" +
                 "            \"title\" : \"aographTest测试Apk\",\n" +
-                "            \"description\" : \"<div class=\\\"gray\\\">"+currentTime()+"</div> <div class=\\\"normal\\\">主要进行了sdk升级，修复部分bug</div><div class=\\\"highlight\\\">"+des+"，下载密码123456</div>\",\n" +
+                "            \"description\" : \"<div class=\\\"gray\\\">"+currentTime()+"</div> <div class=\\\"normal\\\">"+des+"</div><div class=\\\"highlight\\\">"+issue+"，下载密码123456</div>\",\n" +
                 "            \"url\" : \"https://www.pgyer.com/BON6\",\n" +
                 "            \"btntxt\":\"前往下载\"\n" +
                 "   },\n" +
