@@ -19,7 +19,7 @@ class AppHelperPlugin implements Plugin<Project> {
     private static final String LINE_COUNTER_TASK_NAME = "_lineCounter"
     private static final String SEND_MESSAGE_TO_WECHAT_TASK_NAME = "_sendMesToWechat"
     private static final String POST_APK_TO_PGY_TASK_NAME = "_postApkToPGY"
-    private static final String RELESASE_HELPER_NAME = "releaseHelper"
+    private static final String RELESASE_HELPER_NAME = "appDispenseHelper"
     private static final String WINDOWS_JAVA_PATH = "\\app\\src\\main\\java"
     private static final String WINDOWS_RES_PATH = "\\app\\src\\main\\res\\layout"
     private static final String UNIX_JAVA_PATH = "/app/src/main/java"
