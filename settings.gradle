@@ -1,8 +1,8 @@
-initEnvironmentExt()
+initProperties()
 include ':app'
 rootProject.name = "agent_android_test"
 
-def initEnvironmentExt(){
+def initProperties(){
     String fileName = "apkrelative.properties"
     Properties properties = new Properties()
     File proFile = new File(rootDir.getAbsolutePath(), fileName)
